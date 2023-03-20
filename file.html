@@ -1,0 +1,324 @@
+<?php
+$conn = new mysqli("localhost", "ssar", "ssar", "library");
+if($conn->connect_error){
+    die("Ошибка: " . $conn->connect_error);
+}
+$sql = "SELECT NameBook FROM Book";
+if($result = $conn->query($sql)){
+
+    echo "<table><tr><th>Имя</th></tr>";
+    foreach($result as $row){
+        echo "<tr>";
+            echo "<td>" . $row["NameBook"] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+
+    $result->free();
+} else{
+    echo "Ошибка: " . $conn->error;
+}
+$conn->close();
+?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Библиотека </title>
+    <meta charset="utf-8">
+    <style>
+        body{margin:0;}
+        header{
+            background-color: #F0C981;
+            height: 100px;
+            text-align: center;
+        }
+        h1{
+            margin-top:0;
+        }
+        .tit{
+        padding-top: 30px;
+        }
+        main{
+            height: auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .left{
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+        .mid{
+            width: 60%;
+        }
+        button {
+            background-color: #BD9E66;
+            border: none;
+            padding: 15px 32px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 85%;
+        }
+        .right{
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+        }
+        footer{
+            background-color: #73664E;
+            height: 100px;
+            text-align: center;
+            color: white;
+        }
+        .d{
+            background: #BD9E66;
+            height: 45px;
+            text-align: center;
+            margin-top:10px;
+        }
+        form {
+          display: flex;
+          justify-content: space-around;
+
+        }
+        input[type="text"] {
+            width: 85%;
+            padding: 10px;
+            margin-top:3px;
+        }
+        input[type="submit"] {
+          background-color: transparent;
+          border: 1px solid black;
+          padding: 11px;
+          font-size: 12px;
+          font-weight: 400;
+          text-transform: uppercase;
+          margin-top:3px;
+        }
+        .cont{
+            display: flex;
+            flex-direction: row;
+            margin: 5px;
+        }
+        .pict img{
+            width: 100px;
+        }
+        .des{margin: 5px;}
+        .advert img{
+            width: 90%;
+            margin: 15px;
+        }
+        /* Модальный (фон) */
+        .modal {
+          display: none; /* Скрыто по умолчанию */
+          position: fixed; /* Оставаться на месте */
+          z-index: 1; /* Сидеть на вершине */
+          padding-top: 100px; /* Расположение коробки */
+          left: 0;
+          top: 0;
+          width: 100%; /* Полная ширина */
+          height: 100%; /* Полная высота */
+          overflow: auto; /* Включите прокрутку, если это необходимо */
+          background-color: rgb(0,0,0); /* Цвет запасной вариант  */
+          background-color: rgba(0,0,0,0.4); /*Черный с непрозрачностью */
+        }
+
+        /* Кнопка закрытия */
+        .close {
+          color: white;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        /* Модальный заголовок */
+        .modal-header {
+          padding: 2px 16px;
+          background-color: #BD9E66;
+          color: white;
+        }
+
+        /* Модальное тело */
+        .modal-body {padding: 2px 16px;}
+
+        /* Модальный нижний колонтитул */
+        .modal-footer {
+          padding: 2px 16px;
+          background-color: #BD9E66;
+          color: white;
+        }
+
+        /* Модальное содержание */
+        .modal-content {
+          position: relative;
+          background-color: #fefefe;
+          margin: auto;
+          padding: 0;
+          border: 1px solid #888;
+          width: 80%;
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+          animation-name: animatetop;
+          animation-duration: 0.4s
+        }
+
+        /* Добавить анимация */
+        @keyframes animatetop {
+          from {top: -300px; opacity: 0}
+          to {top: 0; opacity: 1}
+        }
+</style>
+
+
+ </head>
+
+ <body>
+<header>
+    <h1 class="tit">Дом книг</h1>
+</header>
+<main>
+    <div class="left">
+        <button id="myBtn">Войти</button>
+<!-- Модальном окно -->
+<div id="myModal" class="modal">
+
+<!-- Модальное содержание -->
+<div class="modal-content">
+  <div class="modal-header">
+    <span class="close">&times;</span>
+    <h2>Войти</h2>
+  </div>
+  <div class="modal-body">
+    <p>Логин</p>
+    <input type="text">
+    <p>Пароль</p>
+    <input type="text">
+    <button>Войти</button>
+  </div>
+    <div class="modal-footer">
+        <h3><a>Забыл(а) пароль</a></h3>
+    </div>
+</div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+
+        <button><a href="новости.html">Новости</a></button>
+        <button><a href="о нас.html">О нас</a></button>
+    </div>
+    <div class="mid">
+        <div class="d">
+            <form action="#">
+              <input type="text" placeholder="Введите название книги" >
+              <input type="submit" value="Поиск">
+            </form>
+        </div>
+
+        <div class="cont">
+            <div class="pict">
+                <picture>
+                    <source srcset="Mal.jpg" media="(max-width: 768px)">
+                    <source srcset="Mal.jpg">
+                    <img src="Mal.jpg">
+                </picture>
+            </div>
+            <div class="des"><b> «Маленькие женщины» </b>
+<BR> – семейная сага, повествующая о судьбах четырех сестер Марч
+                – добросердечной красавицы Мег, «сорванца в юбке» Джо,
+                кроткой и нежной Бесс и талантливой фантазерки Эми.
+…Гражданская война идет далеко на Юге, но ее грозные отголоски достигли
+                и дружной семьи небогатого провинциального пастора Марча
+                – сам он ушел на фронт полковым священником, и жена с дочерьми,
+                как и множество других американок, день за днем живут в страхе
+                трагических известий. Однако никакая война не в силах помешать
+                девочкам взрослеть и превращаться в юных девушек. Девушек с их
+                обычными и трогательными девичьими мечтами и надеждами, радостями,
+                горестями и, конечно, первой любовью…</div>
+
+
+        </div>
+
+        <div class="cont">
+            <div class="pict">
+                <picture>
+                    <source srcset="Mast.jpg" media="(max-width: 768px)">
+                    <source srcset="Mast.jpg">
+                    <img src="Mast.jpg">
+                </picture>
+            </div>
+            <div class="des"><b>  «Мастер и Маргарита» </b>
+<BR> – удивительное и загадочное произведение XX века. Опубликованный в середине 1960-х, этот роман поразил читателей необычностью замысла, красочностью и фантастичностью действия, объединяющего героев разных эпох и культур.</div>
+
+        </div>
+
+        <div class="cont">
+            <div class="pict">
+                <picture>
+                    <source srcset="Fil.jpg" media="(max-width: 768px)">
+                    <source srcset="Fil.jpg">
+                    <img src="Fil.jpg">
+                </picture>
+            </div>
+            <div class="des"><b> «Гарри Поттер и философский камень» </b>
+<BR>Первый роман в серии книг про юного волшебника Гарри Поттера, написанный Дж. К. Роулинг. В нём рассказывается, как Гарри узнает, что он волшебник, встречает близких друзей и немало врагов в Школе Чародейства и Волшебства «Хогвартс», а также с помощью своих друзей пресекает попытку возвращения злого волшебника Волан-де-Морта, который убил родителей Гарри. </div>
+
+        </div>
+        
+    </div>
+    <div class="right">
+        <picture class="advert">
+            <source srcset="adtest1.jpg" media="(max-width: 768px)">
+            <source srcset="adtest2.jpg">
+            <img src="adtest1.jpg">
+        </picture>
+        <picture class="advert">
+            <source srcset="adtest2.jpg" media="(max-width: 768px)">
+            <source srcset="adtest1.jpg">
+            <img src="adtest2.jpg">
+        </picture>
+    </div>
+
+</main>
+<footer>
+  Я подвал сайта, я как шапка. Сюда кьюар-код
+
+</footer>
+ </body>
+</html>

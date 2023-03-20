@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> О нас  </title>
+    <meta charset="utf-8">
+    <style>
+        body{margin:0;}
+        header{
+            background-color: #F0C981;
+            height: 100px;
+            text-align: center;
+        }
+        h1{
+            margin-top:0;
+        }
+        main{
+            height: auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .left{
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+        .mid{
+            width: 60%;
+        }
+        button {
+            background-color: #BD9E66;
+            border: none;
+            padding: 15px 32px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 85%;
+        }
+        .right{
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+        }
+        footer{
+            background-color: #73664E;
+            height: 100px;
+            text-align: center;
+            color: white;
+        }
+        .d{
+            background: #BD9E66;
+            height: 45px;
+            text-align: center;
+            margin-top:10px;
+        }
+        form {
+          display: flex;
+          justify-content: space-around;
+
+        }
+        input[type="text"] {
+            width: 85%;
+            padding: 10px;
+            margin-top:3px;
+        }
+        input[type="submit"] {
+          background-color: transparent;
+          border: 1px solid black;
+          padding: 11px;
+          font-size: 12px;
+          font-weight: 400;
+          text-transform: uppercase;
+          margin-top:3px;
+        }
+        .cont{
+            display: flex;
+            flex-direction: row;
+            margin: 5px;
+        }
+        .pict img{
+            width: 100px;
+        }
+        .des{margin: 5px;}
+        .advert img{
+            width: 90%;
+            margin: 15px;
+        }
+        .inf{
+        text-indent: 30px;
+        }
+        .left a {
+    color: black;
+    text-decoration: none;
+}
+    </style>
+
+ </head>
+
+ <body>
+<header>
+    <h1> Дом книг </h1>
+</header>
+<main>
+    <div class="left">
+        <button>Войти</button>
+        <button><a href="новости.html">Новости</a></button>
+        <button><a href="о нас.html">О нас</a></button>
+    </div>
+    <div class="mid">
+        <div class="d"> <h1> О нас </h1> </div>
+		<div class="inf"> Данная информационная система создана для того,
+            чтобы помочь Вам облегчить доступ к знаниям! Мы собрали
+            для Вас удобную и структурируемую информацию для прочтения
+            книг, журналов. На примере данного сайта, который является
+            прототипом библиотеки в Кумертау будет храниться, создаваться
+            учетная запись читателей и работников библиотеки. После
+            авторизации с помощью данной системы читатель сможет узнать
+            есть ли интересующая его/ее книга или журнал, чтобы прочесть
+            ее в библиотеки в читальном зале или же взять ее домой. Если
+            же вы являетесь работником библиотеки, то сможете вносить
+            данные: есть ли эта книга в библиотеки, нет или же она находится
+            у другого читателя. Таким образом вы сможете экономить свое
+            время или деньги на проезд если библиотека находиться далеко.</div>
+	    <div class="inf">«Книга – сказочная лампа, дарящая человеку свет на самых далёких
+            и тёмных дорогах жизни», - говорил романист, поэт, драматург
+            Андрей Мартынович Упит. </div>
+        <div class="inf">По всем вопросам работы проекта обращайтесь
+        на goulnazalibaeva@yandex.ru , и мы обязательно
+        Вам ответим! Если у вас есть идеи или предложения
+        на счет сайта ждем ваше письмо на goulnazalibaeva@yandex.ru</div>
+ </div>
+
+  <div class="right">
+          <picture class="advert">
+            <source srcset="adtest1.jpg" media="(max-width: 768px)">
+            <source srcset="adtest2.jpg">
+            <img src="adtest1.jpg">
+        </picture>
+        <picture class="advert">
+            <source srcset="adtest2.jpg" media="(max-width: 768px)">
+            <source srcset="adtest1.jpg">
+            <img src="adtest2.jpg">
+        </picture>
+  </div>
+</main>
+<footer>
+  Я подвал сайта, я как шапка. Сюда кьюар-код
+
+</footer>
+ </body>
+</html>
