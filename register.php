@@ -4,20 +4,7 @@
         header ('Location: profie.php');
     }
 ?>
-<?php
-$con = mysqli_connect('localhost', 'ssar', 'ssar', 'library');
-?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Библиотека</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/header.css">
-</head>
 
-<body>
 <!doctype html>
 <html lang="en">
 <head>
@@ -68,44 +55,30 @@ $con = mysqli_connect('localhost', 'ssar', 'ssar', 'library');
         <div class="enter"><button><a href="">О нас</a></button></div>
     </div>
     <div class="col-6">
-
-      <div class="poisk">
+    <div>
         <form class="fom" method="post">
-            <input type="search" name="search" placeholder="Введите название книги" required="">
-            <input type="submit" name="search_btn" value="Поиск">
+            <h1>Новости</h1>
         </form>
-      </div>
-
-      <div class="mid">
-
-        <div class="cont">
-            <?php
-            if(isset($_POST['search_btn'])){
-    $search = $_POST['search'];
-    $q = mysqli_query($con, "SELECT img, NameBook, Disc, State, FIO FROM `Book` INNER JOIN `Autor` ON Book.idA = Autor.idA WHERE `NameBook` LIKE '%$search%';");
-
-            foreach ($q as $row) { ?>
-            <div class="pict">
-                <picture><?php echo $row["img"] ?></picture>
-            </div>
-            <div class="des"><b><?php echo $row["NameBook"] ?></b>
-                <BR><?php echo $row["Disc"] ?>
-                <BR><b>Автор: </b><?php echo $row["FIO"] ?>
-                <p class="state"><?php
-                if ($row["State"] > 0){
-                echo "<p style='background-color:#A3E2AD;'>Книга есть в наличии </p>"; }
-                else {echo "<p style='background-color:#FAA0A0;'> Книги нет в наличии </p>";}?><p>
-
-            </div>
-
-            <?php }
-            } ?>
-        </div>
-
-      </div>
-
     </div>
-    <div class="col-3">
+    <div class="poisk">
+        <form action="signin.php" method="post">
+            <p>ФИО</p>
+            <input type="text" name="full_name" placeholder="Введите своё полное имя">
+            <p>Пароль</p>
+            <input type="password" name="password" placeholder="Введите пароль">
+            <p>Подтверждение пароля</p>
+            <input type="password" name="password_confirm" placeholder="Повторите пароль">
+            <button>Войти</button>
+                <?php
+                    if ($_SESSION['message']){
+                        echo '<p class="msg">'.$_SESSION['message'].'<p>';
+                    }
+                    unset ($_SESSION['message']);
+                    ?>
+        </form>
+    </div>
+    </div>
+    <div class="col">
         <picture class="advert">
             <img src="assets/picture/adtest2.jpg">
         </picture>
@@ -113,9 +86,13 @@ $con = mysqli_connect('localhost', 'ssar', 'ssar', 'library');
             <img src="assets/picture/adt2.jpg">
         </picture>
     </div>
-  </div>
+ </div>
+
+
+
 </div>
 <div class="fixed-bottom">© 2023 Все права защищены</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
 </body>
 </html>
